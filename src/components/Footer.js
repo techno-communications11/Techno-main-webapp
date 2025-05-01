@@ -84,7 +84,7 @@ function Footer() {
                   Services
                 </motion.a>
               </motion.li>
-              <motion.li whileHover={{ x: 5 }}>
+              {/* <motion.li whileHover={{ x: 5 }}>
                 <motion.a
                   onClick={() => handleNavigation('/locations')}
                   className="cursor-pointer"
@@ -94,7 +94,7 @@ function Footer() {
                 >
                   Locations
                 </motion.a>
-              </motion.li>
+              </motion.li> */}
             </ul>
           </div>
 
