@@ -57,7 +57,7 @@ const StoreLocator = () => {
           </h1>
 
           <p className="text-gray-600 text-center mb-8">
-            We're here for you. Come visit us at one of our Metro by T-Mobile
+            We are here for you. Come visit us at one of our Metro by T-Mobile
             retail locations listed below
           </p>
         </div>
@@ -138,7 +138,7 @@ const StoreLocator = () => {
           ))
         ) : (
           <div className="text-center py-12 text-gray-600">
-            No markets found matching "{searchTerm}"
+            No markets found matching &ldquo{searchTerm}&ldquo
           </div>
         )}
       </div>

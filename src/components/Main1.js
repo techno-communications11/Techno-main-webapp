@@ -1,83 +1,83 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 function Main1() {
-
   const router = useRouter();
-  
+
   const handleClick = () => {
-    router.push('/locations');
-  }
-  
+    router.push("/locations");
+  };
+
   // Enhanced animation variants
   const fadeIn = {
     hidden: { opacity: 0, y: 30 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
-      transition: { 
-        duration: 0.8, 
-        ease: [0.25, 0.1, 0.25, 1.0] // Custom easing
-      }
-    }
+      transition: {
+        duration: 0.8,
+        ease: [0.25, 0.1, 0.25, 1.0], // Custom easing
+      },
+    },
   };
-  
+
   const slideInLeft = {
     hidden: { opacity: 0, x: -50 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       x: 0,
-      transition: { 
-        duration: 0.7, 
-        type: "spring", 
-        stiffness: 70 
-      }
-    }
+      transition: {
+        duration: 0.7,
+        type: "spring",
+        stiffness: 70,
+      },
+    },
   };
-  
+
   const slideInRight = {
     hidden: { opacity: 0, x: 50 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       x: 0,
-      transition: { 
-        duration: 0.7, 
-        type: "spring", 
-        stiffness: 70 
-      }
-    }
+      transition: {
+        duration: 0.7,
+        type: "spring",
+        stiffness: 70,
+      },
+    },
   };
-  
+
   const scaleUp = {
     hidden: { opacity: 0, scale: 0.9 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       scale: 1,
-      transition: { 
-        duration: 0.6, 
-        type: "spring", 
+      transition: {
+        duration: 0.6,
+        type: "spring",
         stiffness: 100,
-        damping: 10
-      }
-    }
+        damping: 10,
+      },
+    },
   };
 
   const buttonHover = {
     rest: { scale: 1 },
-    hover: { 
+    hover: {
       scale: 1.05,
       boxShadow: "0 10px 20px rgba(0, 0, 0, 0.15)",
       transition: {
         type: "spring",
         stiffness: 400,
-        damping: 10
-      }
+        damping: 10,
+      },
     },
     tap: {
-      scale: 0.95
-    }
+      scale: 0.95,
+    },
   };
 
   return (
@@ -102,15 +102,17 @@ function Main1() {
               transition={{
                 duration: 5,
                 repeat: Infinity,
-                repeatType: "reverse"
+                repeatType: "reverse",
               }}
             />
             <div className="rounded-xl overflow-hidden shadow-2xl relative">
               <div className="absolute inset-0 bg-gradient-to-t from-blue-900/30 to-transparent z-10" />
-              <img
-                src="website_front_map-1.png"
-                alt="Our stores across USA"
-                className="w-full h-auto object-cover transform hover:scale-105 transition-transform duration-700"
+              <Image
+                src="/website_front_map-1.png"
+                alt="Techno Communications Global LLC Logo"
+                width={700} // set to actual width in pixels
+                height={700} // set to actual height in pixels
+                className="drop-shadow-md"
               />
               <motion.div
                 className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-lg shadow-lg z-20"
@@ -119,11 +121,13 @@ function Main1() {
                 viewport={{ once: true }}
                 transition={{ delay: 0.5, duration: 0.4 }}
               >
-                <span className="text-sm font-semibold text-blue-600">National Coverage</span>
+                <span className="text-sm font-semibold text-blue-600">
+                  National Coverage
+                </span>
               </motion.div>
             </div>
           </motion.div>
-          
+
           {/* Text Content with Enhanced Animations */}
           <motion.div
             variants={slideInRight}
@@ -143,10 +147,10 @@ function Main1() {
                   transition={{
                     duration: 3,
                     repeat: Infinity,
-                    repeatType: "reverse"
+                    repeatType: "reverse",
                   }}
                 />
-                
+
                 <motion.div
                   variants={scaleUp}
                   className="text-7xl font-extrabold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent leading-tight"
@@ -156,12 +160,12 @@ function Main1() {
                   transition={{
                     duration: 8,
                     repeat: Infinity,
-                    repeatType: "reverse"
+                    repeatType: "reverse",
                   }}
                 >
                   15 Markets &
                 </motion.div>
-                
+
                 <motion.div
                   variants={scaleUp}
                   transition={{ delay: 0.2 }}
@@ -169,16 +173,11 @@ function Main1() {
                   animate={{
                     backgroundPosition: ["100% 50%", "0% 50%", "100% 50%"],
                   }}
-                  transition={{
-                    duration: 8,
-                    repeat: Infinity,
-                    repeatType: "reverse"
-                  }}
                 >
                   350+ Stores
                 </motion.div>
               </div>
-              
+
               {/* Heading with enhanced animation */}
               <motion.h1
                 variants={slideInLeft}
@@ -186,7 +185,7 @@ function Main1() {
                 className="text-4xl font-bold text-gray-700 leading-tight"
               >
                 We Have the Largest Network
-                <br className="hidden lg:block" /> 
+                <br className="hidden lg:block" />
                 of Stores in USA
                 <motion.div
                   className="h-1 w-20 bg-gradient-to-r from-blue-500 to-purple-500 mt-4 rounded-full"
@@ -196,21 +195,22 @@ function Main1() {
                   transition={{ delay: 0.6, duration: 0.8 }}
                 />
               </motion.h1>
-              
+
               {/* Description with enhanced animation */}
               <motion.p
                 variants={fadeIn}
                 transition={{ delay: 0.4 }}
                 className="mt-6 text-lg text-gray-600 leading-relaxed"
               >
-                Our extensive reach ensures we're always close to our customers,
-                providing convenience and accessibility across the nation. With stores
-                in major cities and suburban areas, we're committed to bringing our
-                services to communities everywhere.
+                Our extensive reach ensures we &apos; re always close to our
+                customers, providing convenience and accessibility across the
+                nation. With stores in major cities and suburban areas, we
+                &apos;re committed to bringing our services to communities
+                everywhere.
               </motion.p>
-              
+
               {/* Button with enhanced hover effect */}
-              <motion.div 
+              <motion.div
                 className="mt-8"
                 variants={fadeIn}
                 transition={{ delay: 0.6 }}
@@ -224,12 +224,8 @@ function Main1() {
                   className="px-8 py-4 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white rounded-lg font-semibold shadow-lg transition-all duration-300 relative overflow-hidden group"
                 >
                   <span className="relative z-10">Find Locations</span>
-                  <motion.span 
-                    className="absolute inset-0 bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                  />
-                  <motion.span 
-                    className="absolute -inset-1 bg-gradient-to-r from-blue-400 to-purple-400 rounded-lg opacity-0 group-hover:opacity-30 blur-lg transition-opacity duration-500"
-                  />
+                  <motion.span className="absolute inset-0 bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <motion.span className="absolute -inset-1 bg-gradient-to-r from-blue-400 to-purple-400 rounded-lg opacity-0 group-hover:opacity-30 blur-lg transition-opacity duration-500" />
                 </motion.button>
               </motion.div>
             </div>

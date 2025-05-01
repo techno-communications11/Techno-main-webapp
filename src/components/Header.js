@@ -1,20 +1,19 @@
-"use client"
-import React, { useState } from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { motion } from 'framer-motion';
+"use client";
+import React, { useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { motion } from "framer-motion";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { RxCross2 } from "react-icons/rx";
+import Image from "next/image";
 
-import NavLinks from './NavLinks';
-import MobileMenu from './MobileMenu';
+import NavLinks from "./NavLinks";
+import MobileMenu from "./MobileMenu";
 
-// Placeholder logo (replace with your company logo)
-const logo = '/logoT.webp'; // Ensure logo.png is in public folder
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const currentPath = usePathname() || '/';
+  const currentPath = usePathname() || "/";
 
   // Toggle mobile menu
   const toggleMobileMenu = () => {
@@ -24,13 +23,21 @@ const Header = () => {
   // Animation for header
   const headerVariants = {
     initial: { y: -100, opacity: 0 },
-    animate: { y: 0, opacity: 1, transition: { duration: 0.6, ease: "easeOut" } },
+    animate: {
+      y: 0,
+      opacity: 1,
+      transition: { duration: 0.6, ease: "easeOut" },
+    },
   };
 
   // Animation for logo
   const logoVariants = {
     initial: { opacity: 0, scale: 0.8 },
-    animate: { opacity: 1, scale: 1, transition: { duration: 0.5, delay: 0.2 } },
+    animate: {
+      opacity: 1,
+      scale: 1,
+      transition: { duration: 0.5, delay: 0.2 },
+    },
     hover: { scale: 1.05, transition: { duration: 0.3 } },
   };
 
@@ -51,10 +58,13 @@ const Header = () => {
           whileHover="hover"
         >
           <Link href="/" className="flex items-center space-x-3">
-            <img src={logo} alt="Techno Communications Global LLC Logo" className="h-23 w-auto drop-shadow-md" />
-            {/* <span className="text-2xl font-extrabold text-gray-900 tracking-wide drop-shadow-sm">
-              Techno Communications
-            </span> */}
+            <Image
+              src="/logoT.webp"
+              alt="Techno Communications Global LLC Logo"
+              width={200} // set to actual width in pixels
+              height={60} // set to actual height in pixels
+              className="drop-shadow-md"
+            />
           </Link>
         </motion.div>
 
@@ -67,11 +77,15 @@ const Header = () => {
           <motion.button
             className="md:hidden text-gray-900 focus:outline-none p-2 rounded-full hover:bg-gray-100/50 transition-all"
             onClick={toggleMobileMenu}
-            aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
+            aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
             whileHover={{ scale: 1.1, rotate: 5 }}
             whileTap={{ scale: 0.95 }}
           >
-            {isMobileMenuOpen ? <RxCross2 size={24} /> : <GiHamburgerMenu size={24} />}
+            {isMobileMenuOpen ? (
+              <RxCross2 size={24} />
+            ) : (
+              <GiHamburgerMenu size={24} />
+            )}
           </motion.button>
         </div>
 
