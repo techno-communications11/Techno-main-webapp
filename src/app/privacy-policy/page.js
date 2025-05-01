@@ -44,45 +44,15 @@ const PrivacyPolicy = () => {
                 </p>
               </div>
 
-              <div>
-                <h2 className="text-xl font-bold text-pink-700 mb-3">Information We Collect</h2>
-                <p className="text-gray-700 mb-2">We collect the following types of information:</p>
-                <ul className="space-y-2 text-gray-700 pl-5">
-                  <li className="list-disc">
-                    <span className="font-medium">Information You Provide:</span> Name, email address, phone number, payment details, and other information when you make purchases, sign up for services, or contact us.
-                  </li>
-                  <li className="list-disc">
-                    <span className="font-medium">Transaction Data:</span> Details about your purchases and services, such as accessories, devices, or T-Mobile plans, processed through our stores.
-                  </li>
-                  <li className="list-disc">
-                    <span className="font-medium">Technical Data:</span> IP address, browser type, and device information collected via cookies or analytics tools when you visit our website or interact with our digital services.
-                  </li>
-                </ul>
-              </div>
+             
 
-              <div>
-                <h2 className="text-xl font-bold text-pink-700 mb-3">How We Use Your Information</h2>
-                <p className="text-gray-700 mb-2">We use your information to:</p>
-                <ul className="space-y-2 text-gray-700 pl-5">
-                  <li className="list-disc">Process and fulfill purchases, including accessories, devices, and T-Mobile services in our stores.</li>
-                  <li className="list-disc">Provide customer support and respond to inquiries.</li>
-                  <li className="list-disc">Improve our website, store operations, and product offerings.</li>
-                  <li className="list-disc">With your consent, send promotional offers about T-Mobile products or services.</li>
-                  <li className="list-disc">Analyze website and store usage to enhance customer experience.</li>
-                  <li className="list-disc">Comply with legal and regulatory requirements.</li>
-                </ul>
-              </div>
               
               <div>
                 <h2 className="text-xl font-bold text-pink-700 mb-3">Sharing Your Information</h2>
                 <p className="text-gray-700 mb-2">
-                  We do <span className="font-bold">not sell</span> or rent your personal data. We may share your information with:
+                  We do <span className="font-bold">not sell</span> or rent your personal data. 
                 </p>
-                <ul className="space-y-2 text-gray-700 pl-5">
-                  <li className="list-disc">T-Mobile and its affiliates to provide products and services in our stores.</li>
-                  <li className="list-disc">Service providers (e.g., payment processors, analytics) under strict confidentiality agreements.</li>
-                  <li className="list-disc">Legal authorities, if required by law or to protect our rights.</li>
-                </ul>
+             
               </div>
               
               <div>
@@ -124,26 +94,16 @@ const PrivacyPolicy = () => {
                 </p>
               </div>
               
-              <div>
-                <h2 className="text-xl font-bold text-pink-700 mb-3">Children &apos;s Privacy</h2>
-                <p className="text-gray-700">
-                  Our services are not intended for individuals under 13. We do not knowingly collect personal data from children under this age. If we learn such data has been collected, we will delete it promptly.
-                </p>
-              </div>
+             
               
               <div>
                 <h2 className="text-xl font-bold text-pink-700 mb-3">Third-Party Links</h2>
                 <p className="text-gray-700">
-                  Our website or services may include links to third-party sites, such as T-Mobile &apos; s website. We are not responsible for their privacy practices or content.
+                  Our website or services may include links to third-party sites,  We are not responsible for their privacy practices or content.
                 </p>
               </div>
               
-              <div>
-                <h2 className="text-xl font-bold text-pink-700 mb-3">International Data Transfers</h2>
-                <p className="text-gray-700">
-                  Your data may be transferred to and stored in countries outside your region, including the United States, for processing by us or our partners. We use safeguards like Standard Contractual Clauses to ensure data protection.
-                </p>
-              </div>
+              
               
               <div>
                 <h2 className="text-xl font-bold text-pink-700 mb-3">Updates to This Policy</h2>
