@@ -138,7 +138,7 @@ function Footer() {
           <div className="mb-4 md:mb-0 text-gray-400 text-sm">
             <p>© 2010 6464 Savoy Dr Suite 215</p>
             <p>info@techno-communications.com</p>
-            <p>Phone: +(626) 416-3666</p>
+            <p>Phone: +1(346) 487-7627</p>
           </div>
 
           {/* Social Icons */}

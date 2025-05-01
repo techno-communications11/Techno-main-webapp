@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
-import { FaMapMarkerAlt, FaPhone, FaEnvelope, FaClock, FaFacebook, FaTwitter, FaLinkedin, FaInstagram } from "react-icons/fa";
+import { FaMapMarkerAlt, FaPhone, FaEnvelope, FaFacebook, FaTwitter, FaLinkedin, FaInstagram } from "react-icons/fa";
 
 const page = () => {
   const contactMethods = [
@@ -14,8 +14,8 @@ const page = () => {
     {
       icon: <FaPhone className="text-2xl text-purple-600" />,
       title: "Phone Number",
-      info: "+1 (626) 416-3666",
-      link: "tel:+16264163666"
+      info: "+1 (346) 487-7627",
+      link: "tel:+13464877627"
     },
     {
       icon: <FaEnvelope className="text-2xl text-blue-600" />,
