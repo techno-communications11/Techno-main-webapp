@@ -38,7 +38,7 @@ const NavLinks = ({ currentPath }) => {
           </Link>
         </motion.div>
       ))}
-      <a href='https://hiring.techno-communications.com/' style={{ backgroundColor: '#b7950b', padding: '4px' }}>Talent Connect</a>
+      <a href='https://dashboard.techno-communications.com/' style={{ backgroundColor: '#b7950b', padding: '4px' }} className='rounded'>Members Only</a>
     </nav>
   );
 };

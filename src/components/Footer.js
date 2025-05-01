@@ -104,7 +104,7 @@ function Footer() {
             <ul className="space-y-2 text-gray-400">
               <motion.li whileHover={{ x: 5 }}>
                 <motion.a
-                  onClick={() => handleNavigation('https://policies.google.com/privacy')}
+                  onClick={() => handleNavigation('/privacy-policy')}
                   className="cursor-pointer"
                   variants={linkVariants}
                   whileHover="hover"
