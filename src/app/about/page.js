@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 
-export default function About() {
+export default function page() {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -43,7 +43,7 @@ export default function About() {
             className="space-y-6 text-gray-700 text-lg leading-relaxed"
           >
             <h1 className="text-4xl md:text-6xl font-bold text-gray-600 tracking-tight">
-              About
+              Our Story
             </h1>
             <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mt-2">
               Techno Communications LLC

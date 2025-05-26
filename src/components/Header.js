@@ -10,7 +10,6 @@ import Image from "next/image";
 import NavLinks from "./NavLinks";
 import MobileMenu from "./MobileMenu";
 
-
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const currentPath = usePathname() || "/";
@@ -44,7 +43,7 @@ const Header = () => {
   return (
     <motion.header
       className="sticky top-0 z-50 bg-white/80
- backdrop-blur-md  border-b border-gray-100/50 shadow-sm"
+ backdrop-blur-md  border-b border-gray-100/50 "
       variants={headerVariants}
       initial="initial"
       animate="animate"
@@ -75,7 +74,7 @@ const Header = () => {
 
           {/* Mobile Menu Button */}
           <motion.button
-            className="md:hidden text-gray-900 focus:outline-none p-2 rounded-full hover:bg-gray-100/50 transition-all"
+            className="md:hidden text-gray-900 focus:outline-none p-3 rounded-full hover:bg-gray-100/50 transition-all"
             onClick={toggleMobileMenu}
             aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
             whileHover={{ scale: 1.1, rotate: 5 }}
@@ -84,7 +83,7 @@ const Header = () => {
             {isMobileMenuOpen ? (
               <RxCross2 size={24} />
             ) : (
-              <GiHamburgerMenu size={24} />
+              <GiHamburgerMenu size={34} />
             )}
           </motion.button>
         </div>

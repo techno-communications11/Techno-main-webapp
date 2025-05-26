@@ -1,15 +1,10 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
-import { useRouter } from "next/navigation";
 import Image from "next/image";
 
 function Main1() {
-  const router = useRouter();
 
-  const handleClick = () => {
-    router.push("/locations");
-  };
 
   // Enhanced animation variants
   const fadeIn = {
@@ -64,21 +59,7 @@ function Main1() {
     },
   };
 
-  const buttonHover = {
-    rest: { scale: 1 },
-    hover: {
-      scale: 1.05,
-      boxShadow: "0 10px 20px rgba(0, 0, 0, 0.15)",
-      transition: {
-        type: "spring",
-        stiffness: 400,
-        damping: 10,
-      },
-    },
-    tap: {
-      scale: 0.95,
-    },
-  };
+
 
   return (
     <div className="w-full bg-gradient-to-b from-white via-blue-50/20 to-gray-50 py-16 md:py-12 overflow-hidden">
@@ -94,7 +75,7 @@ function Main1() {
             className="relative mb-8 w-full order-2 lg:order-1"
           >
             <motion.div
-              className="absolute -inset-4 bg-gradient-to-r from-blue-200/30 to-purple-200/30 rounded-2xl blur-lg -z-10"
+              className="absolute -inset-4  from-blue-200/30 to-purple-200/30 rounded-2xl blur-lg -z-10"
               animate={{
                 opacity: [0.5, 0.8, 0.5],
                 scale: [0.98, 1.01, 0.98],
@@ -105,26 +86,15 @@ function Main1() {
                 repeatType: "reverse",
               }}
             />
-            <div className="rounded-xl overflow-hidden shadow-2xl relative">
-              <div className="absolute inset-0 bg-gradient-to-t from-blue-900/30 to-transparent z-10" />
+            <div className=" overflow-hidden relative">
+              <div className="absolute inset-0  to-transparent z-10" />
               <Image
-                src="/website_front_map-1.png"
+                src="/imagestore.jpg"
                 alt="Techno Communications Global LLC Logo"
-                width={700} // set to actual width in pixels
-                height={700} // set to actual height in pixels
-                className="drop-shadow-md"
+                width={600} // set to actual width in pixels
+                height={600} // set to actual height in pixels
               />
-              <motion.div
-                className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-lg shadow-lg z-20"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.5, duration: 0.4 }}
-              >
-                <span className="text-sm font-semibold text-blue-600">
-                  National Coverage
-                </span>
-              </motion.div>
+              
             </div>
           </motion.div>
 
@@ -210,24 +180,7 @@ function Main1() {
               </motion.p>
 
               {/* Button with enhanced hover effect */}
-              <motion.div
-                className="mt-8"
-                variants={fadeIn}
-                transition={{ delay: 0.6 }}
-              >
-                <motion.button
-                  onClick={handleClick}
-                  variants={buttonHover}
-                  initial="rest"
-                  whileHover="hover"
-                  whileTap="tap"
-                  className="px-8 py-4 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white rounded-lg font-semibold shadow-lg transition-all duration-300 relative overflow-hidden group"
-                >
-                  <span className="relative z-10">Find Locations</span>
-                  <motion.span className="absolute inset-0 bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  <motion.span className="absolute -inset-1 bg-gradient-to-r from-blue-400 to-purple-400 rounded-lg opacity-0 group-hover:opacity-30 blur-lg transition-opacity duration-500" />
-                </motion.button>
-              </motion.div>
+             
             </div>
           </motion.div>
         </div>

@@ -70,7 +70,7 @@ function Main() {
             Techno Communications LLC
           </span>
         </motion.h1>
-        <motion.p style={{fontWeight:900}}   className=" text-6xl fw-bolder bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent"> #1 Dealer for Metro by T-mobile</motion.p>
+        <motion.p style={{fontWeight:900}}   className=" text-6xl fw-bolder bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent p-2"> #1 Dealer for Metro by T-mobile</motion.p>
         <motion.p className=" text-1xl  bg-gradient-to-r from-gray-600 to-gray-600 bg-clip-text text-transparent">Techno communication LLc is leading the wireless industry 
             <br/> by focusing  and specializing in Metro by T-Mobile.
             <br/> With over 350+, stores in 15
@@ -79,9 +79,11 @@ function Main() {
          
           whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.98 }}
+         
         >
           <button 
             onClick={handleClick}
+             style={{cursor: 'pointer'}}
             className="mt-8 px-10 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:brightness-110"
           >
             Discover Our Story →

@@ -57,9 +57,7 @@ const Services = () => {
    const handleClickContact=()=>{
  router.push('/contact')
    }
-    const handleClickStores=()=>{
-        router.push('/locations')
-    }
+  
 
   return (
     <div className="bg-gradient-to-br from-gray-50 to-gray-100 py-16 px-4 sm:px-6 lg:px-8">
@@ -116,10 +114,7 @@ const Services = () => {
           <h3 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6">
             Ready to experience premium wireless service?
           </h3>
-          <button onClick={handleClickStores} style={{cursor:'pointer'}} className="px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:brightness-110">
-            Find a Store Near You
-          </button>
-          <span className="text-gray-900"> (OR) </span>
+          
           <button onClick={handleClickContact}style={{cursor:'pointer'}}  className="px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:brightness-110">
             Contact US
           </button>

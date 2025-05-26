@@ -1,72 +1,229 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { FaMapMarkerAlt, FaPhone, FaEnvelope, FaFacebook, FaTwitter, FaLinkedin, FaInstagram } from "react-icons/fa";
+import { FaMapMarkerAlt, FaPhone, FaEnvelope } from "react-icons/fa";
 
-const page = () => {
+const Toast = ({ message, type, onClose }) => {
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      onClose();
+    }, 5000);
+    return () => clearTimeout(timer);
+  }, [onClose]);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      className={`fixed top-4 right-4 z-50 max-w-sm p-4 rounded-lg shadow-xl text-white flex items-center gap-2 ${
+        type === "success"
+          ? "bg-gradient-to-r from-green-500 to-green-600"
+          : "bg-gradient-to-r from-red-500 to-red-600"
+      }`}
+    >
+      <span className="text-sm font-medium">{message}</span>
+      <button
+        onClick={onClose}
+        className="ml-2 text-white hover:text-gray-200 focus:outline-none"
+      >
+        ✕
+      </button>
+    </motion.div>
+  );
+};
+
+const Page = () => {
+  const [data, setData] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(false);
+  const [toast, setToast] = useState({ message: "", type: "", visible: false });
+
   const contactMethods = [
     {
       icon: <FaMapMarkerAlt className="text-2xl text-blue-600" />,
       title: "Our Headquarters",
       info: "6464 Savoy Dr, Suite 215, Houston, TX 77036",
-      link: "https://goo.gl/maps/6m2abb9adf339d56"
+      link: "https://goo.gl/maps/6m2abb9adf339d56",
     },
     {
       icon: <FaPhone className="text-2xl text-purple-600" />,
       title: "Phone Number",
       info: "+1 (346) 487-7627",
-      link: "tel:+13464877627"
+      link: "tel:+13464877627",
     },
     {
       icon: <FaEnvelope className="text-2xl text-blue-600" />,
       title: "Email Address",
       info: "info@techno-communications.com",
-      link: "mailto:info@techno-communications.com"
+      link: "mailto:info@techno-communications.com",
     },
-    
   ];
 
-  const socialLinks = [
-    { icon: <FaFacebook size={20} />, url: "https://facebook.com" },
-    { icon: <FaTwitter size={20} />, url: "https://twitter.com" },
-    { icon: <FaLinkedin size={20} />, url: "https://linkedin.com" },
-    { icon: <FaInstagram size={20} />, url: "https://instagram.com" }
+  const subBranches = [
+    {
+      name: "Houston Headquarters",
+      location: "6464 Savoy Dr, Suite 215, Houston, TX 77036",
+      image: "/headoffice.jpg",
+    },
+    {
+      name: "India Office",
+      location: "SCR towers 2nd Floor madhapur Hyderabad, Telangana 500081",
+      image: "/headoffice.jpg",
+    },
+    {
+      name: "Pakistan Office",
+      location: "----",
+      image: "/headoffice.jpg",
+    },
+    {
+      name: "Dubai Office",
+      location: "----",
+      image: "/headoffice.jpg",
+    },
   ];
+
+  const showToast = (message, type) => {
+    setToast({ message, type, visible: true });
+  };
+
+  const closeToast = () => {
+    setToast({ ...toast, visible: false });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const { name, email, subject, message } = data;
+
+    if (!name || !email || !subject || !message) {
+      setError("Please fill in all fields.");
+      showToast("Please fill in all fields.", "error");
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setError("Please enter a valid email address.");
+      showToast("Please enter a valid email address.", "error");
+      return;
+    }
+
+    setIsSubmitting(true);
+    setError(null);
+    setSuccess(false);
+
+    try {
+      const response = await fetch("/api/send-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || "Failed to send message.");
+      }
+
+      setSuccess(true);
+      setData({ name: "", email: "", subject: "", message: "" });
+      showToast("Your message has been sent successfully! We'll get back to you soon.", "success");
+    } catch (err) {
+      setError(err.message || "Something went wrong. Please try again.");
+      showToast(err.message || "Something went wrong. Please try again.", "error");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
-    <div className="bg-gradient-to-br from-gray-50 to-gray-100 py-16 px-4 sm:px-6 lg:px-8">
+    <div className="bg-gray-50 min-h-screen py-5 px-4 sm:px-6 lg:px-8">
+      {toast.visible && <Toast message={toast.message} type={toast.type} onClose={closeToast} />}
       <div className="max-w-7xl mx-auto">
-        {/* Header Section */}
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 mb-4">
-            Contact Us
-          </h2>
+          <h2 className="text-4xl font-bold text-gray-900 mb-4 font-serif">Contact Us</h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Get in touch with our team for any inquiries or visit one of our 350+ locations nationwide
+            Get in touch with our team for any inquiries or visit one of our locations worldwide
           </p>
-          <div className="w-20 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto mt-4"></div>
+          <div className="w-24 h-1.5 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto mt-6 rounded-full"></div>
         </motion.div>
 
-        {/* Map and Contact Info Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Google Maps Embed */}
+
+         <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="mb-24"
+        >
+          <div className="text-center mb-12">
+            <h3 className="text-3xl font-bold text-gray-900 mb-3 font-serif">Our Global Offices</h3>
+            <div className="w-24 h-1.5 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto rounded-full"></div>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {subBranches.map((branch, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="relative rounded-xl overflow-hidden shadow-lg group border border-gray-200 hover:shadow-xl transition-all"
+              >
+                <div className="h-50 bg-gray-200 overflow-hidden">
+                  <img
+                    src={branch.image}
+                    alt={branch.name}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                <div className="absolute bottom-0 left-0 right-0 p-6">
+                  <h3 className="text-white text-xl font-semibold mb-2">{branch.name}</h3>
+                  <p className="text-gray-200 text-sm flex items-center gap-2">
+                    <FaMapMarkerAlt className="text-blue-300 flex-shrink-0" />
+                    {branch.location}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+
+
+  <div className="text-center mb-12">
+            <h3 className="text-3xl font-bold text-gray-900 mb-3 font-serif">Our HeadQuarters</h3>
+            <div className="w-24 h-1.5 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto rounded-full"></div>
+          </div>
+        {/* Map and Info */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-24">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="rounded-xl overflow-hidden shadow-xl h-full min-h-[400px]"
+            className="rounded-xl overflow-hidden shadow-xl h-full min-h-[400px] border border-gray-200"
           >
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d4411.685153293091!2d-95.50411327223605!3d29.715041330098032!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8640c24eaf700001%3A0x6d2abb9adf339d56!2s6464%20Savoy%20Dr%20Suite%20215%2C%20Houston%2C%20TX%2077036!5e1!3m2!1sen!2sus!4v1746042579652!5m2!1sen!2sus"
+              src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d4411.685153293091!2d-95.50411327223605!3d29.715041330098032!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8640c24eaf700001%3A0x6d2abb9adf339d56!2s6464%20Savoy%20Dr%20Suite%20215%2C%20Houston%2C%20TX%2077036!5e1!3m2!1sen!2sus@"
               width="100%"
               height="100%"
-              style={{ border: 0 }}
+              style={{ border: "0" }}
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
@@ -74,133 +231,163 @@ const page = () => {
             ></iframe>
           </motion.div>
 
-          {/* Contact Information */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="space-y-8"
+            className="space-y-6"
           >
             {contactMethods.map((method, index) => (
               <motion.div
                 key={index}
                 whileHover={{ x: 5 }}
-                className="flex items-start gap-4 bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow"
+                className="flex items-start gap-4 bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all border border-gray-100"
               >
-                <div className="mt-1">{method.icon}</div>
+                <div className="mt-1 flex-shrink-0">{method.icon}</div>
                 <div>
-                  <h3 className="text-xl font-semibold text-gray-800 mb-2">{method.title}</h3>
+                  <h3 className="text-lg font-semibold text-gray-800 mb-2">{method.title}</h3>
                   {method.link ? (
-                    <a 
-                      href={method.link} 
-                      className="text-gray-600 hover:text-blue-600 transition-colors"
+                    <a
+                      href={method.link}
+                      className="text-gray-600 hover:text-blue-600 transition-colors text-base"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      {method.info.split('\n').map((line, i) => (
+                      {method.info.split("\n").map((line, i) => (
                         <p key={i}>{line}</p>
                       ))}
                     </a>
                   ) : (
-                    method.info.split('\n').map((line, i) => (
-                      <p key={i} className="text-gray-600">{line}</p>
+                    method.info.split("\n").map((line, i) => (
+                      <p key={i} className="text-gray-600 text-base">{line}</p>
                     ))
                   )}
                 </div>
               </motion.div>
             ))}
-
-            {/* Social Media Links */}
-            {/* <div className="pt-4">
-              <h3 className="text-xl font-semibold text-gray-800 mb-4">Connect With Us</h3>
-              <div className="flex gap-4">
-                {socialLinks.map((social, index) => (
-                  <motion.a
-                    key={index}
-                    href={social.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    whileHover={{ y: -5, scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="bg-white p-3 rounded-full shadow-md hover:shadow-lg text-gray-700 hover:text-blue-600 transition-all"
-                  >
-                    {social.icon}
-                  </motion.a>
-                ))}
-              </div>
-            </div> */}
           </motion.div>
         </div>
 
-        {/* Contact Form Section */}
+        {/* Sub-Branches Section */}
+       <div className="text-center mb-12">
+            <h3 className="text-3xl font-bold text-gray-900 mb-3 font-serif">Message Us</h3>
+            <div className="w-24 h-1.5 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto rounded-full"></div>
+          </div>
+
+        {/* Form */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
           viewport={{ once: true }}
-          className="mt-20 bg-white rounded-xl shadow-xl overflow-hidden"
+          className="bg-white rounded-xl shadow-xl overflow-hidden border border-gray-200"
         >
           <div className="grid grid-cols-1 lg:grid-cols-2">
-            <div className="bg-gradient-to-br from-blue-600 to-purple-600 p-12 text-white">
-              <h3 className="text-2xl font-bold mb-4">Send Us a Message</h3>
-              <p className="mb-6">
+            <div className="bg-gradient-to-br from-blue-700 to-purple-700 p-12 text-white">
+              <h3 className="text-2xl font-bold mb-4 font-serif">Send Us a Message</h3>
+              <p className="mb-8 text-blue-100">
                 Have questions about our services or locations? Our team typically responds within 24 hours.
               </p>
-              <div className="space-y-2">
-                <p className="flex items-center gap-2">
-                  <FaPhone className="text-blue-300" /> +1 (626) 416-3666
+              <div className="space-y-4">
+                <p className="flex items-center gap-3">
+                  <FaPhone className="text-blue-300 flex-shrink-0" /> 
+                  <span className="text-blue-100">+1 (626) 416-3666</span>
                 </p>
-                <p className="flex items-center gap-2">
-                  <FaEnvelope className="text-blue-300" /> info@techno-communications.com
+                <p className="flex items-center gap-3">
+                  <FaEnvelope className="text-blue-300 flex-shrink-0" /> 
+                  <span className="text-blue-100">info@techno-communications.com</span>
                 </p>
               </div>
             </div>
             <div className="p-12">
-              <form className="space-y-6">
+              <form className="space-y-6" onSubmit={handleSubmit}>
+                {error && !success && (
+                  <p className="text-red-600 text-sm font-medium">{error}</p>
+                )}
+                {success && (
+                  <p className="text-green-600 text-sm font-medium">
+                    Message sent successfully!
+                  </p>
+                )}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label htmlFor="name" className="block text-gray-700 mb-2">Full Name</label>
+                    <label htmlFor="name" className="block text-gray-700 mb-2 font-medium">
+                      Full Name
+                    </label>
                     <input
                       type="text"
                       id="name"
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                      name="name"
+                      value={data.name}
+                      onChange={(e) => setData({ ...data, name: e.target.value })}
+                      className="w-full px-4 py-3 text-gray-700 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                       placeholder="John Doe"
+                      disabled={isSubmitting}
                     />
                   </div>
                   <div>
-                    <label htmlFor="email" className="block text-gray-700 mb-2">Email Address</label>
+                    <label htmlFor="email" className="block text-gray-700 mb-2 font-medium">
+                      Email Address
+                    </label>
                     <input
                       type="email"
                       id="email"
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                      name="email"
+                      value={data.email}
+                      onChange={(e) => setData({ ...data, email: e.target.value })}
+                      className="w-full px-4 py-3 text-gray-700 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                       placeholder="john@example.com"
+                      disabled={isSubmitting}
                     />
                   </div>
                 </div>
                 <div>
-                  <label htmlFor="subject" className="block text-gray-700 mb-2">Subject</label>
+                  <label htmlFor="subject" className="block text-gray-700 mb-2 font-medium">
+                    Subject
+                  </label>
                   <input
                     type="text"
                     id="subject"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                    name="subject"
+                    value={data.subject}
+                    onChange={(e) => setData({ ...data, subject: e.target.value })}
+                    className="w-full px-4 py-3 text-gray-700 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                     placeholder="How can we help?"
+                    disabled={isSubmitting}
                   />
                 </div>
                 <div>
-                  <label htmlFor="message" className="block text-gray-700 mb-2">Message</label>
+                  <label htmlFor="message" className="block text-gray-700 mb-2 font-medium">
+                    Message
+                  </label>
                   <textarea
                     id="message"
-                    rows="4"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                    name="message"
+                    value={data.message}
+                    onChange={(e) => setData({ ...data, message: e.target.value })}
+                    rows="5"
+                    className="w-full px-4 py-3 text-gray-700 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                     placeholder="Your message here..."
+                    disabled={isSubmitting}
                   ></textarea>
                 </div>
                 <button
                   type="submit"
-                  className="px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all hover:brightness-110"
+                  className="px-8 py-3.5 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-semibold shadow-md hover:shadow-lg transition-all hover:brightness-105 disabled:opacity-70 w-full sm:w-auto"
+                  disabled={isSubmitting}
                 >
-                  Send Message
+                  {isSubmitting ? (
+                    <span className="flex items-center justify-center gap-2">
+                      <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      Sending...
+                    </span>
+                  ) : (
+                    "Send Message"
+                  )}
                 </button>
               </form>
             </div>
@@ -211,4 +398,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
