@@ -119,7 +119,7 @@ const Page = () => {
     setSuccess(false);
 
     try {
-      const response = await fetch("/api/send-email", {
+      const response = await fetch("https://application-three-sepia.vercel.app/api/send-email", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
